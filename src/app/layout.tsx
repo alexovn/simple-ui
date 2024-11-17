@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { TheFooter } from '@/components/TheFooter'
 import { TheHeader } from '@/components/TheHeader'
 import { Noto_Sans } from 'next/font/google'
 import './globals.css'
@@ -22,6 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
+      </head>
       <body
         className={`${noto_sans.variable} ${noto_sans.variable} antialiased min-h-screen`}
       >

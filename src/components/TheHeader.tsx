@@ -1,6 +1,5 @@
-import { UiButton } from '@/components/ui/UiButton'
+import { Button } from '@/components/ui/button'
 import { Icon } from '@iconify/react'
-import { CircleDashed } from 'lucide-react'
 import Link from 'next/link'
 
 export function TheHeader() {
@@ -20,11 +19,11 @@ export function TheHeader() {
       <li
         key={item.name}
       >
-        <UiButton asChild variant="link">
+        <Button asChild variant="link">
           <Link href={item.href}>
             {item.name}
           </Link>
-        </UiButton>
+        </Button>
       </li>
     )
   })
@@ -34,7 +33,13 @@ export function TheHeader() {
       <div className="py-3 flex items-center justify-between gap-3">
         <div>
           <Link className="flex items-center gap-3" href="/">
-            <CircleDashed size={32} />
+            <div className="size-8">
+              <Icon
+                className="!size-8 animate-spin-slow"
+                icon="fluent:circle-hint-20-filled"
+                height="unset"
+              />
+            </div>
             <div className="text-lg font-medium">
               Simple Ui
             </div>
@@ -47,21 +52,32 @@ export function TheHeader() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <UiButton variant="ghost">
+            {/* <div className="flex items-center gap-2">
+              <Button variant="ghost">
                 Log in
-              </UiButton>
-              <UiButton>
+              </Button>
+              <Button>
                 Sign up
-              </UiButton>
-            </div>
+              </Button>
+            </div> */}
 
             <div>
-              <UiButton className="p-2 h-auto" asChild variant="ghost">
-                <Link href="https://github.com/alexovn" target="_blank">
-                  <Icon className="!size-6" icon="mdi:github" height="unset" />
+              <Button
+                asChild
+                variant="ghost"
+                className="p-2 size-10"
+              >
+                <Link
+                  href="https://github.com/alexovn"
+                  target="_blank"
+                >
+                  <Icon
+                    className="!size-6"
+                    icon="mdi:github"
+                    height="unset"
+                  />
                 </Link>
-              </UiButton>
+              </Button>
             </div>
           </div>
         </div>

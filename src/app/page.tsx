@@ -1,13 +1,13 @@
-import { UiButton } from '@/components/ui/UiButton'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 export default function Home() {
   return (
-    <section className="py-10">
+    <section className="my-10">
       <div className="my-10 flex flex-col gap-10">
         <div className="flex flex-col items-center justify-center gap-3">
           <h1 className="font-medium">
-            The Simple Ui
+            Simple Ui
           </h1>
           <h2 className="text-7xl font-bold">
             Plain. Light. Yours
@@ -15,11 +15,11 @@ export default function Home() {
         </div>
 
         <div className="self-center">
-          <UiButton asChild>
+          <Button asChild>
             <Link href="/blog">
               Get started
             </Link>
-          </UiButton>
+          </Button>
         </div>
       </div>
     </section>
