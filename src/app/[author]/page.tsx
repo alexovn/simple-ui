@@ -11,10 +11,21 @@ import {
 } from '@/components/ui/breadcrumb'
 import Link from 'next/link'
 
-export default async function Blog() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ author: string }>
+}) {
   const { getPosts } = await apiBlog()
+  const author = (await params).author
 
-  const postsRes = await getPosts()
+  const query = {
+    filter: {
+      authorId: author,
+    },
+  }
+
+  const postsRes = await getPosts(query)
 
   return (
     <div>
@@ -29,7 +40,15 @@ export default async function Blog() {
           <BreadcrumbSeparator />
 
           <BreadcrumbItem>
-            <BreadcrumbPage>Blog</BreadcrumbPage>
+            <BreadcrumbLink asChild>
+              <Link href="/blog">Blog</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+
+          <BreadcrumbSeparator />
+
+          <BreadcrumbItem>
+            <BreadcrumbPage>Author</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

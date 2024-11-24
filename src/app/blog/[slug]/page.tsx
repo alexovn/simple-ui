@@ -8,6 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { format as formatDate } from 'date-fns'
 import Link from 'next/link'
 
 export default async function Page({
@@ -19,6 +20,13 @@ export default async function Page({
   const slug = (await params).slug
 
   const post = await getPost(slug)
+
+  function handleFormatDate(date: Date | undefined) {
+    if (date) {
+      return formatDate(date, 'MMM d, yyyy')
+    }
+    return ''
+  }
 
   return (
     <div>
@@ -46,10 +54,30 @@ export default async function Page({
         </BreadcrumbList>
       </Breadcrumb>
 
-      <article className="my-2 lg:mx-[12.5rem]">
+      <article className="custom-container pt-5 pb-10">
         <PageHeader title={post?.title || ''} />
 
-        <div>
+        <div className="flex items-center gap-1.5 text-sm">
+          <div className="flex items-center gap-1">
+            <Link
+              href={`/${post?.authorId}`}
+              className="flex items-center gap-1 hover:underline"
+            >
+              <div>
+                {post?.author.firstName}
+              </div>
+              <div>
+                {post?.author.lastName}
+              </div>
+            </Link>
+          </div>
+          <span className="text-gray-500">·</span>
+          <div className="text-gray-500">
+            { handleFormatDate(post?.createdAt) }
+          </div>
+        </div>
+
+        <div className="mt-3">
           { post?.description }
         </div>
       </article>

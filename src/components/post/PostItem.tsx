@@ -21,14 +21,30 @@ export async function PostItem(
   return (
     <article>
       <div className="flex flex-col gap-5">
-        <Link
-          className="hover:underline"
-          href={`/blog/${post.id}`}
-        >
-          <h3 className="h3 font-medium">
-            {post.title}
-          </h3>
-        </Link>
+        <div>
+          <Link
+            className="hover:underline"
+            href={`/blog/${post.id}`}
+          >
+            <h3 className="h3 font-medium">
+              {post.title}
+            </h3>
+          </Link>
+          <div className="flex items-center gap-1.5 text-sm">
+            <div className="text-gray-500">by</div>
+            <Link
+              href={`/${post.authorId}`}
+              className="flex items-center gap-1 hover:underline"
+            >
+              <div>
+                {post.author.firstName}
+              </div>
+              <div>
+                {post.author.lastName}
+              </div>
+            </Link>
+          </div>
+        </div>
         <div
           className="whitespace-pre-line flex flex-col gap-2"
           dangerouslySetInnerHTML={{ __html: sanitizedDescription }}

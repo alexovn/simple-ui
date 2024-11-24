@@ -77,3 +77,9 @@ body {
     @apply text-xl;
   }
 }
+
+.custom-container {
+  @apply
+  mx-auto
+  lg:max-w-[768px];
+}
