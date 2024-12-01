@@ -13,7 +13,7 @@ export function PageHeader(
       <h1 className="h1 py-3">
         {title}
       </h1>
-      <h2>{subtitle}</h2>
+      { subtitle && <h2>{subtitle}</h2>}
     </div>
   )
 }

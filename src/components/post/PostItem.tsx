@@ -1,5 +1,7 @@
 /* eslint-disable react-dom/no-dangerously-set-innerhtml */
 import type { Post } from '@/app/blog/interfaces/post.interface'
+import { Button } from '@/components/ui/button'
+import { format as formatDate } from 'date-fns'
 import DOMPurify from 'isomorphic-dompurify'
 import Link from 'next/link'
 
@@ -9,6 +11,16 @@ export async function PostItem(
   }:
   { post: Post },
 ) {
+  const sanitizedDescription = DOMPurify.sanitize(formatText(post.description))
+  const postLink = `blog/${post.id}`
+
+  function formattedDescription() {
+    if (sanitizedDescription.length > 500) {
+      return `${sanitizedDescription.slice(0, 400)}...`
+    }
+    return sanitizedDescription
+  }
+
   function formatText(text: string) {
     return text
       .split('\n')
@@ -16,17 +28,22 @@ export async function PostItem(
       .join('')
   }
 
-  const sanitizedDescription = DOMPurify.sanitize(formatText(post.description))
+  function handleFormatDate(date?: Date) {
+    if (date) {
+      return formatDate(date, 'MMM d, yyyy')
+    }
+    return ''
+  }
 
   return (
     <article>
-      <div className="flex flex-col gap-5">
+      <div>
         <div>
           <Link
             className="hover:underline"
-            href={`/blog/${post.id}`}
+            href={postLink}
           >
-            <h3 className="h3 font-medium">
+            <h3 className="h3 py-3 font-medium">
               {post.title}
             </h3>
           </Link>
@@ -43,12 +60,28 @@ export async function PostItem(
                 {post.author.lastName}
               </div>
             </Link>
+            <span className="text-gray-500">·</span>
+            <div className="text-gray-500">
+              { handleFormatDate(post.createdAt) }
+            </div>
           </div>
         </div>
+
         <div
-          className="whitespace-pre-line flex flex-col gap-2"
-          dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+          className="mt-5 flex flex-col gap-2 whitespace-pre-line"
+          dangerouslySetInnerHTML={{ __html: formattedDescription() }}
         />
+
+        <div className="mt-5">
+          <Button
+            asChild
+            size="sm"
+          >
+            <Link href={postLink}>
+              Read more
+            </Link>
+          </Button>
+        </div>
       </div>
     </article>
   )

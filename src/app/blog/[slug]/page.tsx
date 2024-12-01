@@ -1,3 +1,4 @@
+/* eslint-disable react-dom/no-dangerously-set-innerhtml */
 import { apiBlog } from '@/app/blog/api'
 import { PageHeader } from '@/components/page/PageHeader'
 import {
@@ -9,6 +10,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { format as formatDate } from 'date-fns'
+import DOMPurify from 'isomorphic-dompurify'
 import Link from 'next/link'
 
 export default async function Page({
@@ -20,8 +22,20 @@ export default async function Page({
   const slug = (await params).slug
 
   const post = await getPost(slug)
+  const sanitizedDescription = DOMPurify.sanitize(formatText(post?.description))
 
-  function handleFormatDate(date: Date | undefined) {
+  function formatText(text?: string) {
+    if (!text) {
+      return ''
+    }
+
+    return text
+      .split('\n')
+      .map((line: string) => `<p>${line}</p>`)
+      .join('')
+  }
+
+  function handleFormatDate(date?: Date) {
     if (date) {
       return formatDate(date, 'MMM d, yyyy')
     }
@@ -77,9 +91,10 @@ export default async function Page({
           </div>
         </div>
 
-        <div className="mt-3">
-          { post?.description }
-        </div>
+        <div
+          className="mt-5 flex flex-col gap-2 whitespace-pre-line"
+          dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+        />
       </article>
     </div>
   )
