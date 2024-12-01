@@ -1,3 +1,4 @@
+import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { Icon } from '@iconify/react'
 import Link from 'next/link'
@@ -29,7 +30,7 @@ export function TheHeader() {
   })
 
   return (
-    <header className="px-4 xl:px-[7.5rem] bg-white">
+    <header className="px-4 xl:px-[7.5rem] bg-background">
       <div className="py-3 flex items-center justify-between gap-3">
         <div>
           <Link className="flex items-center gap-3" href="/">
@@ -61,7 +62,7 @@ export function TheHeader() {
               </Button>
             </div> */}
 
-            <div>
+            <div className="flex items-center gap-2">
               <Button
                 asChild
                 variant="ghost"
@@ -78,6 +79,8 @@ export function TheHeader() {
                   />
                 </Link>
               </Button>
+
+              <ThemeToggle />
             </div>
           </div>
         </div>

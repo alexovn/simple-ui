@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { TheHeader } from '@/components/TheHeader'
+import { TheHeader } from '@/components/the-header'
+import { ThemeProvider } from '@/components/theme-provider'
 import { Noto_Sans } from 'next/font/google'
 import './globals.css'
 
@@ -20,20 +21,23 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
       </head>
-      <body
-        className={`${noto_sans.variable} ${noto_sans.variable} antialiased min-h-screen`}
-      >
-        <div className="flex flex-col min-h-screen">
-          <TheHeader />
+      <body className={`${noto_sans.variable} ${noto_sans.variable} antialiased min-h-screen`}>
+        <ThemeProvider
+          attribute="class"
+          disableTransitionOnChange
+        >
+          <div className="flex flex-col min-h-screen">
+            <TheHeader />
 
-          <main className="px-4 xl:px-[7.5rem] flex flex-col grow">
-            {children}
-          </main>
-        </div>
+            <main className="px-4 xl:px-[7.5rem] flex flex-col grow">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )
