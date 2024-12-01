@@ -25,7 +25,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
       </head>
-      <body className={`${noto_sans.variable} ${noto_sans.variable} antialiased min-h-screen`}>
+      <body className={`${noto_sans.variable} ${noto_sans.variable} relative antialiased min-h-screen`}>
         <ThemeProvider
           attribute="class"
           disableTransitionOnChange

@@ -30,7 +30,7 @@ export function TheHeader() {
   })
 
   return (
-    <header className="px-4 xl:px-[7.5rem] bg-background">
+    <header className="px-4 xl:px-[7.5rem] sticky top-0 z-50 backdrop-blur supports-backdrop-blur:bg-white/60 bg-background/75 border-b border-border/40 dark:border-border">
       <div className="py-3 flex items-center justify-between gap-3">
         <div>
           <Link className="flex items-center gap-3" href="/">
